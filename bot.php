@@ -19,7 +19,7 @@ if ( sizeof($request_array['events']) > 0 ) {
       
       $reply_message = '';
       $reply_token = $event['replyToken'];
-      $text = $event['message']['text'];
+      $text = $event['ใบแจ้งหนี้ คลิกที่นี่ https://pwa.thailawyersoft.com/Output/202012/PDF/11332222529.pdf ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที']['ใบแจ้งหนี้ คลิกที่นี่ https://pwa.thailawyersoft.com/Output/202012/PDF/11332222529.pdf ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที'];
       $data = [
          'replyToken' => $reply_token,
          'messages' => [['type' => 'text', 'text' => $text ]]
