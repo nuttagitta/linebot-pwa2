@@ -13,12 +13,22 @@ $request = file_get_contents('php://input');   // Get request content
 $request_array = json_decode($request, true);   // Decode JSON to Array
 
 
-if($message == "ค้นหาใบแจ้งหนี้"){
-    $arrayPostData['to'] = $id;
-    $arrayPostData['messages'][0]['type'] = "text";
-    $arrayPostData['messages'][0]['text'] = "ใบแจ้งหนี้ คลิกที่นี่ ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที";
-    $arrayPostData['messages'][1]['stickerId'] = "34";
-    pushMsg($arrayHeader,$arrayPostData);
+if ( sizeof($request_array['events']) > 0 ) {
+      foreach ($request_array['events'] as $event) {
+      
+      $reply_message = 'ใบแจ้งหนี้ คลิกที่นี่ ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที';
+      $reply_token = $event['replyToken'];
+      $data = [
+         'replyToken' => $reply_token,
+         'messages' => [
+            ['type' => 'text', 
+             'text' => json_encode($request_array)]
+         ]
+      ];
+      $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
+      $send_result = send_reply_message($API_URL.'/reply', $POST_HEADER, $post_body);
+      echo "Result: ".$send_result."\r\n";
+   }
 }
 echo "OK";
 
