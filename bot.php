@@ -13,25 +13,15 @@ $request = file_get_contents('php://input');   // Get request content
 $request_array = json_decode($request, true);   // Decode JSON to Array
 
 
-
-if ( sizeof($request_array['events']) > 0 ) {
-   foreach ($request_array['events'] as $event) {
-      
-      $reply_message = '';
-      $reply_token = $event['replyToken'];
-      $text = $event['message']['text'];
-      $data = [
-         'replyToken' => $reply_token,
-         'messages' => [['type' => 'text', 'text' => $text ]]
-      ];
-      $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
-      $send_result = send_reply_message($API_URL.'/reply',      $POST_HEADER, $post_body);
-      echo "Result: ".$send_result."\r\n";
-    }
+if($message == "ค้นหาผู้ใช้น้ำ"){
+    $arrayPostData['to'] = $id;
+    $arrayPostData['messages'][0]['type'] = "text";
+    $arrayPostData['messages'][0]['text'] = "ใบแจ้งหนี้ คลิกที่นี่ https://pwa.thailawyersoft.com/Output/202012/PDF/11332222530.pdf ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที";
+    $arrayPostData['messages'][1]['packageId'] = "2";
+    $arrayPostData['messages'][1]['stickerId'] = "34";
+    pushMsg($arrayHeader,$arrayPostData);
 }
-
 echo "OK";
-
 
 
 
