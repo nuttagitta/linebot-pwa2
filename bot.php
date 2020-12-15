@@ -21,6 +21,16 @@ $bot->multicast($userIds, '<ค้นหาใบแจ้งหนี้>');
 
 
 
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('<gStuEkiVuNbueTctSHQBZBu1hfmuBaK7gfL9jAqUlMrl9wCx52x5yYkB2onZe87/VeWI0N0sRmHDwwbFSpVhEPQhjt9j3ddwduF2BT1r52OkFqZwLOr9B5gjS5++VyCTRl+e+RLHgMyOZ10LdEqm1QdB04t89/1O/w1cDnyilFU=>');
+$bot = new \LINE\LINEBot($httpClient, ['983c55f3689b2f81573f4393d4ab7971' => '<$channelSecret = '983c55f3689b2f81573f4393d4ab7971']);
+
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+$response = $bot->replyMessage('<replyToken>', $textMessageBuilder);
+
+echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+
+
+
 
 function send_reply_message($url, $post_header, $post_body)
 {
