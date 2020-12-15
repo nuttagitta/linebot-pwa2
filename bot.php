@@ -13,22 +13,13 @@ $request = file_get_contents('php://input');   // Get request content
 $request_array = json_decode($request, true);   // Decode JSON to Array
 
 
-
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('<gStuEkiVuNbueTctSHQBZBu1hfmuBaK7gfL9jAqUlMrl9wCx52x5yYkB2onZe87/VeWI0N0sRmHDwwbFSpVhEPQhjt9j3ddwduF2BT1r52OkFqZwLOr9B5gjS5++VyCTRl+e+RLHgMyOZ10LdEqm1QdB04t89/1O/w1cDnyilFU=>');
-$bot = new \LINE\LINEBot($httpClient, ['$channelSecret = '983c55f3689b2f81573f4393d4ab7971' => '<$channelSecret = '983c55f3689b2f81573f4393d4ab7971']);
-$userIds = ['<userId1>', '<userId2>', ...];
-$bot->multicast($userIds, '<ค้นหาใบแจ้งหนี้>');
-
-
-
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('<gStuEkiVuNbueTctSHQBZBu1hfmuBaK7gfL9jAqUlMrl9wCx52x5yYkB2onZe87/VeWI0N0sRmHDwwbFSpVhEPQhjt9j3ddwduF2BT1r52OkFqZwLOr9B5gjS5++VyCTRl+e+RLHgMyOZ10LdEqm1QdB04t89/1O/w1cDnyilFU=>');
-$bot = new \LINE\LINEBot($httpClient, ['983c55f3689b2f81573f4393d4ab7971' => '<$channelSecret = '983c55f3689b2f81573f4393d4ab7971']);
-
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
-$response = $bot->replyMessage('<replyToken>', $textMessageBuilder);
-
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-
+if($message == "ค้นหาใบแจ้งหนี้"){
+    $arrayPostData['to'] = $id;
+    $arrayPostData['messages'][0]['type'] = "text";
+    $arrayPostData['messages'][0]['text'] = "ใบแจ้งหนี้ คลิกที่นี่ ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที";
+    pushMsg($arrayHeader,$arrayPostData);
+}
+echo "OK";
 
 
 
