@@ -13,10 +13,10 @@ $request = file_get_contents('php://input');   // Get request content
 $request_array = json_decode($request, true);   // Decode JSON to Array
 
 
-if($message == "ค้นหาใบแจ้งหนี้"){
+if($message == "ทดสอบ"){
     $arrayPostData['to'] = $id;
     $arrayPostData['messages'][0]['type'] = "text";
-    $arrayPostData['messages'][0]['text'] = "ใบแจ้งหนี้ คลิกที่นี่ ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที";
+    $arrayPostData['messages'][0]['text'] = "ทดสอบข้อตวาม";
     pushMsg($arrayHeader,$arrayPostData);
 }
 echo "OK";
