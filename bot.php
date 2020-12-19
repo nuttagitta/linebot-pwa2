@@ -1,51 +1,36 @@
-  
 <?php
-
-
-$API_URL = 'https://api.line.me/v2/bot/message';
-$ACCESS_TOKEN = 'gStuEkiVuNbueTctSHQBZBu1hfmuBaK7gfL9jAqUlMrl9wCx52x5yYkB2onZe87/VeWI0N0sRmHDwwbFSpVhEPQhjt9j3ddwduF2BT1r52OkFqZwLOr9B5gjS5++VyCTRl+e+RLHgMyOZ10LdEqm1QdB04t89/1O/w1cDnyilFU='; 
-$channelSecret = '983c55f3689b2f81573f4393d4ab7971';
-
-
-$POST_HEADER = array('Content-Type: application/json', 'Authorization: Bearer ' . $ACCESS_TOKEN);
-
-$request = file_get_contents('php://input');   // Get request content
-$request_array = json_decode($request, true);   // Decode JSON to Array
-
-if ( sizeof($request_array['events']) > 0 ) {
-   foreach ($request_array['events'] as $event) {
-      
-      $reply_message = '';
-      $reply_token = $event['replyToken'];
-      //$path = "https://www.linefriends.com/content/banner/201804/3b5364c97c2d4a26988f85acdc78514e.jpg";
-      $text = "ใบแจ้งหนี้ คลิกที่นี่ https://www.linefriends.com/content/banner/201804/3b5364c97c2d4a26988f85acdc78514e.jpg ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที";
-     //$text = $event['message']['text'];
-      $data = [
-         'replyToken' => $reply_token,
-         //'messages' => [['type' => 'image', 'url' => $path ]]
-         'messages' => [['type' => 'text', 'text' => $text ]]
-      ];
-      $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
-      $send_result = send_reply_message($API_URL.'/reply',      $POST_HEADER, $post_body);
-      echo "Result: ".$send_result."\r\n";
+    $accessTokan = "";
+    $content = file_get_contents('php://input');
+    $arrayJson = json_decode($content, true);
+    $arrayHeader = array();
+    $arrayHeader[] = "Content-Type: application/json";
+    $arrayHeader[] = "Authorization: Bearer {$accessTokan}";
+    //รับข้อความจากผู้ใช้
+    $message = $arrayJson['events'][0]['message']['text'];
+    //รับ id ของผู้ใช้
+    $id = $arrayJson['events'][0]['source']['userId'];
+    #ตัวอย่าง Message Type "Text + Sticker"
+    if($message == "สวัสดี"){
+        $arrayPostData['to'] = $id;
+        $arrayPostData['messages'][0]['type'] = "text";
+        $arrayPostData['messages'][0]['text'] = "สวัสดีจ้า";
+        $arrayPostData['messages'][1]['type'] = "sticker";
+        $arrayPostData['messages'][1]['packageId'] = "2";
+        $arrayPostData['messages'][1]['stickerId'] = "34";
+        pushMsg($arrayHeader,$arrayPostData);
     }
-}
-
-
-
-
-function send_reply_message($url, $post_header, $post_body)
-{
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    $result = curl_exec($ch);
-    curl_close($ch);
-
-    return $result;
-}
-
+    function pushMsg($arrayHeader,$arrayPostData){
+        $strUrl = "";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$strUrl);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $arrayHeader);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($arrayPostData));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $result = curl_exec($ch);
+        curl_close ($ch);
+    }
+    exit;
 ?>
