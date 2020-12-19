@@ -18,7 +18,7 @@ if ( sizeof($request_array['events']) > 0 ) {
       $reply_message = '';
       $reply_token = $event['replyToken'];
       $path = "https://www.linefriends.com/content/banner/201804/3b5364c97c2d4a26988f85acdc78514e.jpg";
-     $text = "ใบแจ้งหนี้ คลิกที่นี่ https://pwa.thailawyersoft.com/Output/202012/PDF/11332222530.pdf ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที";
+     //$text = "ใบแจ้งหนี้ คลิกที่นี่ https://pwa.thailawyersoft.com/Output/202012/PDF/11332222530.pdf ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที";
      //$text = $event['message']['text'];
       $data = [
          'replyToken' => $reply_token,
