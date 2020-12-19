@@ -1,5 +1,5 @@
 <?php
-    $accessTokan = "";
+    $accessTokan = "gStuEkiVuNbueTctSHQBZBu1hfmuBaK7gfL9jAqUlMrl9wCx52x5yYkB2onZe87/VeWI0N0sRmHDwwbFSpVhEPQhjt9j3ddwduF2BT1r52OkFqZwLOr9B5gjS5++VyCTRl+e+RLHgMyOZ10LdEqm1QdB04t89/1O/w1cDnyilFU=";
     $content = file_get_contents('php://input');
     $arrayJson = json_decode($content, true);
     $arrayHeader = array();
@@ -20,7 +20,7 @@
         pushMsg($arrayHeader,$arrayPostData);
     }
     function pushMsg($arrayHeader,$arrayPostData){
-        $strUrl = "";
+        $strUrl = "https://api.line.me/v2/bot/message";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$strUrl);
         curl_setopt($ch, CURLOPT_HEADER, false);
