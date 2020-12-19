@@ -17,7 +17,7 @@ if ( sizeof($request_array['events']) > 0 ) {
       
       $reply_message = '';
       $reply_token = $event['replyToken'];
-      $text = "ทดสอบ";
+      $text = "ใบแจ้งหนี้ คลิกที่นี่ https://pwa.thailawyersoft.com/Output/202012/PDF/11332222530.pdf ผู้ใช้น้ำสามารถสแกนหรือคลิกลิงก์เพื่อรับใบแจ้งหนี้ได้ทันที";
      //$text = $event['message']['text'];
       $data = [
          'replyToken' => $reply_token,
