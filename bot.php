@@ -7,18 +7,26 @@
     $arrayHeader[] = "Authorization: Bearer {$accessTokan}";
     //รับข้อความจากผู้ใช้
     $message = $arrayJson['events'][0]['message']['text'];
-    //รับ id ของผู้ใช้
-    $id = $arrayJson['events'][0]['source']['userId'];
-    #ตัวอย่าง Message Type "Text + Sticker"
-    if($message == "สวัสดี"){
-        $arrayPostData['to'] = $id;
-        $arrayPostData['messages'][0]['type'] = "text";
-        $arrayPostData['messages'][0]['text'] = "สวัสดีจ้า";
-        //$arrayPostData['messages'][1]['type'] = "sticker";
-        //$arrayPostData['messages'][1]['packageId'] = "2";
-        //$arrayPostData['messages'][1]['stickerId'] = "34";
-        pushMsg($arrayHeader,$arrayPostData);
+
+{
+  "events": [{
+    "type": "message",
+    "replyToken": "2fad91d0e9424bb5...",
+    "source": {
+      "userId": "U3c28a70ed7c5e7ce2...",
+      "type": "user"
+    },
+    "timestamp": 1546854929833,
+    "message": {
+      "type": "image",
+      "id": "9141988397354",
+      "contentProvider": { "type": "line" }
     }
+  }],
+  "destination": "U820116ffcbe3f3ca71b..."
+}
+
+
     function pushMsg($arrayHeader,$arrayPostData){
         $strUrl = "https://api.line.me/v2/bot/message";
         $ch = curl_init();
